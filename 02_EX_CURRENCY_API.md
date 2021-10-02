@@ -75,3 +75,36 @@ data = requests.get(time_period).json()
 print(json.dumps(data, indent=4), sort_keys=True)
 # The sort_keys=True makes it into chronological order
 ```
+
+### Full-on Example
+
+```python
+import requests
+
+def cover():
+    msg = ' WELCOME TO THE EXCHANGE MONEY CONVERTOR '
+    print('\033[1;32;42m=\033[0m'*70)
+    print(msg.center(70, '~'))
+    print('\033[1;32;42m=\033[0m'*70)
+
+cover()
+print('Would you like to convert money from a specific date?')
+date = input('Please enter the date (yyy-mm-dd) or type "latest": ')
+base = input('Convert from (currency): ')
+curr = input('Convert to (currenty): ')
+quan = float(input('How much would you like to convert? Type here: '.format(base)))
+
+base_url = 'https://api.exchangeratesapi.io/latest'
+url = base_url + '/' + date + '?base=' + base + '&symbols=' + curr
+response = requests.get(url)
+
+if response.ok is False:
+    print('Error: {}:'.format(response.status_code))
+    print(response.json()['error'])
+else:
+    data = response.json()
+    rate = data['rates'][curr]
+    result = quan * rate
+    print('{1} is equal to {2} {3}, based upon\n'
+          'exchange rates on {4}'.format(quan, base, result, curr, data['date']))
+```
