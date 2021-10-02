@@ -11,9 +11,9 @@ These notes are based on the course **Web Scraping and API Fundamentals in Pytho
 **THIS REPOSITORY'S TABLE OF CONTENTS**
 
 FILES | CONTENTS
-: --- | :--------
-01_WORKING_WITH_APIs.md | e
-02_EX_CURRENCY_API.md |
+:--- | :--------
+01_WORKING_WITH_APIs.md | What is an API; the HTTP Protocol; GET/POST requests; JSON format (Python Dictionary and Lists)
+02_EX_CURRENCY_API.md | Import requests; response.ok; response.status_code (200 and 404); response.text (text); response.content (bytes); response.json() (dict); response.json().keys(); json.loads(); json.dumps()
 
 ---
 # PT: Web Scrapping usando Python
@@ -26,6 +26,6 @@ Essas anotações são baseadas no curso **Web Scraping and API Fundamentals in 
 **TABELA DE CONTEÚDOS DO REPOSITÓRIO**
 
 ARQUIVOS | CONTEÚDOS
-: ------ | :---------
-01_TRABALHANDO_COM_APIs.md | e
-02_EX_API_CONVERSAO_MOEDA.md | e
+:------ | :---------
+01_TRABALHANDO_COM_APIs.md | O que é são APIs; o protocolo HTTP; requisições do tipo GET/POST; formato JSON (similar ao Dicionário e a Lista de Python)
+02_EX_API_CONVERSAO_MOEDA.md | Import requests; response.ok; response.status_code (200 and 404); response.text (text); response.content (bytes); response.json() (dict); response.json().keys(); json.loads(); json.dumps()
