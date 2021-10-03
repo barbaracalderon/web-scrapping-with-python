@@ -36,6 +36,14 @@ The JSON format is built upon two fundamental programming structures: **dictiona
 
 JSON files can grow into a chaos of data BUT, that's why the API documentation is important: you'll basically only get a glimpse of all the volume of information. That's because you'll be searching for very specific things, and you can rely on the documentation to find it.
 
+# Pandas Library
+
+At this point, it is very useful to get to know Pandas. This is a fast, powerful and flexible open-source library built on top of Python programming language that is good for data analysis and manipulation. In other words, Pandas deal very well with dictionaries and lists.
+
+Here's an [introduction to Pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html).
+
+The two most important objects in Pandas are **DataFrame** and **Series**. The DataFrame object can be seen as the table; and the Series object can be seen as a column.
+
 # API Pagination
 
 When you send a request to Google for a search, its result contains (sometimes) more than a million pages. Your computer will not download all million results at once. Instead, Google will place some results on page 1, then another bit on page 2, another bit on page 3, and so on... when you click the page, it loads the results of that page.
