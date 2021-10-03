@@ -24,7 +24,7 @@ GET | POST
 --- | ----
 Obter dados do servidor| Alterar o estado ou mandar informação sigilosa
 Pode deixar uma página marcada pra acesso futuro, daí tu pega dali | Os parâmetros são adicionados em um corpo separado
-Os parâmetros são adicionadoos diretamente na URL | -
+Os parâmetros são adicionadoos diretamente na URL | `r = requests.post(url, params=data)`
 _Não deve ser usado para informações sensíveis_ | -
 
 Se tudo der certo com a sua requisição, você deve receber um status code 200. Se as coisas forem erradas, você recebe o código 404 de erro de página não encontrada.
