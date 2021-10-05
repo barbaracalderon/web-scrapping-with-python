@@ -1,5 +1,7 @@
 _In English and e em Português._
 
+**UNDER CONSTRUCTION // EM CONSTRUÇÃO**
+
 # EN: Web Scrapping with Python
 
 Study notes on Web Scraping using Python, **Beautiful Soup** and **Requests**. "Web Scrapping" is the art of accurately and quickly extract data from a web page. In order to do this, we use intelligent automation with Python.
