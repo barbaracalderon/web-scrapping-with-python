@@ -36,3 +36,5 @@ We deal with character encodings standards. One of the first standards was ASCII
 So now we know what web scraping is: it's the process of automatic data extraction from websites. How does it do that? By obtaining the source code of a page and processing it to get the different elements. **Beautiful Soup is a Python library for data extraction for an HTML document**. It's one of the simplest and easiest tools to do this.
 
 Here's the documentation for [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/).
+
+_It continues..._
