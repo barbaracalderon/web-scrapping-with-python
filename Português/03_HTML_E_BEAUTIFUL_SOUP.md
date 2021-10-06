@@ -119,7 +119,7 @@ from bs4 import BeautifulSoup           # Importar o Beautiful Soup
 url = 'https://www.google.com'
 response = requests.get(url)
 
-# Vamos criar o objecto "soup", um objeto do Beautiful Soup
+# Vamos criar o objeto "soup", um objeto do Beautiful Soup
 # Primeiro argumento: o conteúdo da resposta do servidor em bytes
 # Segundo argumento: o "parser" da nossa escolha
 soup = BeautifulSoup(response.content, 'lxml')
