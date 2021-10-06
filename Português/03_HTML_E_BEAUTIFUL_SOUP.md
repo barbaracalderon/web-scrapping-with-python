@@ -39,4 +39,89 @@ Agora a gente sabe o que é Web Scraping: é o processo de extração automátic
 
 Aqui a documentação para o [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc.ptbr/). Em português.
 
+E qual é a rota de fazer Web Scraping? Quais são os passos para extrair dados da web? São basicamente cinco passos. Com exceção do primeiro passo, todo o restante é feito por meio da criação de um código em Python.
+
+1. Inspecionar a página
+2. Obter o HTML
+3. Escolher um parser
+4. Criar um objeto do Beautiful Soup
+5. (Opcional) Exportar o HTML para um arquivo
+
+## 1. Inspecionar a página
+
+Esse é o passo número um. Ao usar o "developer's tool" do navegador para inspecionar a página, nós precisamos saber **onde** o nosso dado está localizado no HTML. Lembra das tags e atributos? Com quais tags e atributos o nosso dado está relacionado? É por isso que inspecionamos a página. 
+
+Mas cuidado.
+
+O navegador faz um monte de coisas pra gente, usuários. Às vezes, ele recebe conteúdos do servidor e o "developer's tool" automaticamente roda o código Javascript (se tiver algum) que, por sua vez, nos presenteia com algo que pode ser diferente do "HTML original" cujo conteúdo bruto (não rodado) foi enviado pelo servidor. Quando a gente analisa as coisas, a gente tá lidando com uma resposta bruta do servidor, o que significa que nenhum Javascript vai ser rodado aqui. Por isso rolam as diferenças. 
+
+O ato de **inspecionar a página é para pegar a ideia geral de como a página está estruturada**, o que é essencial para extrair o dado que queremos.
+
+## 2. Obter o HTML
+
+Isso aqui é parecido com a chamada aos APIs no arquivo `01_TRABALHANDO_COM_APIS.md` nesse repositório. Isso significa que nós vamos precisar enviar uma requisição `request` para o servidor usando a **biblioteca requests**. 
+
+Olha o código abaixo.
+
+
+```python
+import requests                         # Aqui a biblioteca requests
+
+url = 'https://www.google.com'          # Só uma URL de exemplo
+
+# Agora a gente quer mandar uma requisição com método GET para o servidor
+# localizado na URL mencionada, e ela vai dar uma resposta pra gente, que 
+# a gente vai alocar na variável "response"
+
+response = requests.get(url)            
+
+# Nós usamos o método GET porque não estamos tentando logar na página, com
+# login e senha, nem nada. Se a gente tivesse fazendo isso, deveríamos usar
+# o método POST no lugar do GET... porque o POST altera o estado lá no servidor.
+# Mas o método GET não, ele apenas pega algo lá no servidor sem alterar nada.
+
+# Tem muita informação dentro dessa variável "response"
+print(response.status_code)         # Retorna 200 se tudo ok
+print(response.ok)                  # Retorna um booleano
+print(response.content)             # Ele printa o documento HTML
+
+# Mas manipular todo o conteúdo HTML em uma única string é... chato
+# demais. Por isso que "parsear" é quase obrigatório: ele divide a
+# stirng em componentes sintáticos. Isso significa que ele vai 
+# identificar todos os componentes HTML, suas relações uns com os
+# outros, seus atributos e conteúdos. 
+
+# E aí algo massa acontece: uma árvore parse é criada.
+
+# É por isso que a gente faz um parse no response.content
+```
+
+## 3. Escolher um parser
+
+Dá pra pensar numa árvore parse como uma árvore família invertida de elementos HTML. Árvore como na estrutura de dados árvore. 
+
+Quem cria essas árvores?
+
+O parser. Ele é um programa, ou algoritmo, desenhado para "parsear", para criar a árvore parse. O Beautiful Soup não "parseia" o código, ele na verdade usa um "parser" externo... e nós temos que indicar qual parser usar. São três: `html.parser; lxml; html5lib`. 
+
+O Beautiful Soup vê esses três parseadores da seguinte forma: ele diz que o html.parser é o pior, mesmo que seja um parseador criado em Python. É considerado o pior porque ele às vezes não sabe lidar com erros, o que gera inconsistências. O melhor é o lxml, que é o mais rápido e sabe lidar com erros. O do meio é o "html5lib", mesmo sendo o mais devagarzinho - ele consegue lidar com erros e parseia o HTML da mesma forma que um navegador faz.
+
+Se tu não escolher um parser, o Beautiful Soup escolhe pra ti. Mas isso não é massa - é melhor que você explicitamente escolha o parseador. 
+
+## 4. Criar um objeto Beautiful Soup para manipular e extrair dados
+
+Com o HTML nas mãos e a árvore parse, o Beautiful Soup cria o objeto. Esse objeto vai manipular e extrair o dado que nós quisermos dentro desse documento HTML.
+
+## 5. (Opcional) Exportar o HTML para um arquivo (muito recomendado)
+
+Apesar de ser opcional, pode ser uma boa ideia porque:
+
+a) O código no navegador pode ser diferente daquele enviado pelo servidor pra gente. Lembra que o navegador faz um monte de coisa automática para nos presentear com o conteúdo visual da página.
+
+b) O parser... pode não ter "parseado" o documento de modo correto. Essa é a chance de você "ver" isso.
+
+c) Pra referência futura.
+
+Todas as opções de cima são boas razões. Quando a gente tem um bug, inspecionar o arquivo exportado é uma boa opção pra debugar o problema. Pode salvar um monte de tempo ir logo nesse documento salvo.
+
 _Continua_...
