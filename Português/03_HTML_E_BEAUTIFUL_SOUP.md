@@ -112,6 +112,32 @@ Se tu não escolher um parser, o Beautiful Soup escolhe pra ti. Mas isso não é
 
 Com o HTML nas mãos e a árvore parse, o Beautiful Soup cria o objeto. Esse objeto vai manipular e extrair o dado que nós quisermos dentro desse documento HTML.
 
+```python
+import requests
+from bs4 import BeautifulSoup           # Importar o Beautiful Soup
+
+url = 'https://www.google.com'
+response = requests.get(url)
+
+# Vamos criar o objecto "soup", um objeto do Beautiful Soup
+# Primeiro argumento: o conteúdo da resposta do servidor em bytes
+# Segundo argumento: o "parser" da nossa escolha
+soup = BeautifulSoup(response.content, 'lxml')
+
+# Poderíamos ter usado outros parsers:
+soup2 = BeautifulSoup(response.content, 'html.parser')
+
+# Ou até:
+soup3 = BeautifulSoup(response.content, 'html5lib')
+
+# PS: Em vez de usar response.content, poderíamos ter usado o
+# response.text; a diferença é que o primeiro é em bytes, e esse
+# segundo é em texto puro. Por exemplo:
+soup4 = BeautifulSoup(response.text, 'lxml')
+
+# Sempre que tiver dúvidas: printa as coisas pra tu "ver" o que elas são
+```
+
 ## 5. (Opcional) Exportar o HTML para um arquivo (muito recomendado)
 
 Apesar de ser opcional, pode ser uma boa ideia porque:
