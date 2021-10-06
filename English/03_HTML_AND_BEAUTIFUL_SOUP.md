@@ -98,7 +98,7 @@ Who creates these trees?
 
 The parser. It is a program designed to parse, to create the parse tree. The Beautiful Soup does not parse the code, it actually uses an external parser... and we have to indicate which parser to use. There are three: `html.parser; lxml; html5lib`.
 
-Here's how Beautiful Soup views each of these parsers: it ranks the html.parser as the worst, even though it is a built-in Python parser. It's considered the worst because it sometimes does not know how to handle errors. The best one is "lxml", which is the fastest and deals with errors. The middle one is "html5lib", even though it is the slowest - it can handle errors and it parsers the HTML the same way a browser doest.
+Here's how Beautiful Soup views each of these parsers: it ranks the html.parser as the worst, even though it is a built-in Python parser. It's considered the worst because it sometimes does not know how to handle errors. The best one is "lxml", which is the fastest and deals with errors. The middle one is "html5lib", even though it is the slowest - it can handle errors and it parsers the HTML the same way a browser does.
 
 In case you don't choose a parser, Beautiful Soup will choose one for you. But this isn't cool - it's better that you always explicitly choose the parser. 
 
