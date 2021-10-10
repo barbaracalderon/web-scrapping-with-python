@@ -149,7 +149,7 @@ All of the above are good reasons. When we have a bug, to inspect the exported f
 
 ## Searching and Navigating the HTML Tree
 
-It would be awesoe if at this point you'd check the Beautiful Soup documentation.
+It would be awesome if at this point you'd check the Beautiful Soup documentation.
 
 Okay, by now we have created the Beautiful Soup object. We stored it inside the "soup" variable, it became our object. As said before, it contains the whole HTML and more: its attributes, values and more. Its format is the HTML **tree**. And we can navigate this tree in search for things.
 
