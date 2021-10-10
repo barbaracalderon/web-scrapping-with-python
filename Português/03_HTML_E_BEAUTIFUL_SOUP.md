@@ -47,7 +47,7 @@ E qual é a rota de fazer Web Scraping? Quais são os passos para extrair dados 
 4. Criar um objeto do Beautiful Soup
 5. (Opcional) Exportar o HTML para um arquivo
 
-## 1. Inspecionar a página
+### 1. Inspecionar a página
 
 Esse é o passo número um. Ao usar o "developer's tool" do navegador para inspecionar a página, nós precisamos saber **onde** o nosso dado está localizado no HTML. Lembra das tags e atributos? Com quais tags e atributos o nosso dado está relacionado? É por isso que inspecionamos a página. 
 
@@ -57,7 +57,7 @@ O navegador faz um monte de coisas pra gente, usuários. Às vezes, ele recebe c
 
 O ato de **inspecionar a página é para pegar a ideia geral de como a página está estruturada**, o que é essencial para extrair o dado que queremos.
 
-## 2. Obter o HTML
+### 2. Obter o HTML
 
 Isso aqui é parecido com a chamada aos APIs no arquivo `01_TRABALHANDO_COM_APIS.md` nesse repositório. Isso significa que nós vamos precisar enviar uma requisição `request` para o servidor usando a **biblioteca requests**. 
 
@@ -96,7 +96,7 @@ print(response.content)             # Ele printa o documento HTML
 # É por isso que a gente faz um parse no response.content
 ```
 
-## 3. Escolher um parser
+### 3. Escolher um parser
 
 Dá pra pensar numa árvore parse como uma árvore família invertida de elementos HTML. Árvore como na estrutura de dados árvore. 
 
@@ -108,7 +108,7 @@ O Beautiful Soup vê esses três parseadores da seguinte forma: ele diz que o ht
 
 Se tu não escolher um parser, o Beautiful Soup escolhe pra ti. Mas isso não é massa - é melhor que você explicitamente escolha o parseador. 
 
-## 4. Criar um objeto Beautiful Soup para manipular e extrair dados
+### 4. Criar um objeto Beautiful Soup para manipular e extrair dados
 
 Com o HTML nas mãos e a árvore parse, o Beautiful Soup cria o objeto. Esse objeto vai manipular e extrair o dado que nós quisermos dentro desse documento HTML.
 
@@ -138,7 +138,7 @@ soup4 = BeautifulSoup(response.text, 'lxml')
 # Sempre que tiver dúvidas: printa as coisas pra tu "ver" o que elas são
 ```
 
-## 5. (Opcional) Exportar o HTML para um arquivo (muito recomendado)
+### 5. (Opcional) Exportar o HTML para um arquivo (muito recomendado)
 
 Apesar de ser opcional, pode ser uma boa ideia porque:
 
@@ -149,5 +149,58 @@ b) O parser... pode não ter "parseado" o documento de modo correto. Essa é a c
 c) Pra referência futura.
 
 Todas as opções de cima são boas razões. Quando a gente tem um bug, inspecionar o arquivo exportado é uma boa opção pra debugar o problema. Pode salvar um monte de tempo ir logo nesse documento salvo.
+
+## Procurando e Navegando na Árvore HTML
+
+É massa dar uma olhada na documentação do Beautiful Soup. Tem muita coisa lá explicada em detalhes.
+
+Ok, então agora a gente já criou o objeto Beautiful Soup e salvou na variável "soup". Como dito antes, essa variável contém todo o HTML e mais: seus atributos, valores e mais. O seu formato é a **árvore** HTML. E a gente consegue navegar essa árvore para procurar coisas.
+
+_Árvore num sentido de Estrutura de Dados mesmo._
+
+### Por meio dos Métodos: `.find()` e `.find_all()`
+
+Os dois **métodos mais usados** (métodos são as funções de um objeto) do objeto Beautiful Soup são `.find()` e `.find_all()`. Como que a gente usa? **A forma mais simples é procurar por um elemento por meio do nome da sua tag**, então é isso que vai dentro do parênteses do método como argumento.
+
+A diferença entre os dois métodos é que: o `.find()` procura pelo elemento e ele pára quando encontra o primeiro resultado; se o nome da tag não existe no documento, ele retorna `None`. Já o método `.find_all()` cria uma lista e vai armazenando dentro dessa lista cada elemento que ele encontra no meio do caminho que tenha uma tag igual. Se o nome da tag não existe no documento, ele retorna uma lista vazia. 
+
+Também dá para, em vez de procurar o documento inteiro, procurar apenas um "pedaço" do documento - cortando-o em "porções". Assim a gente procura em uma determinada porção apenas, não no corpo todo do documento. Essas coisas podem fazer diferença em larga escala, no sentido de economizar tempo.
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://www.wikipedia.org'
+response = requests.get(url)
+
+soup = BeautifulSoup(response.text, 'lxml')
+# A variável 'soup' de cima representa todo o documento, incluindo o conhecimento
+# sobre os elementos e seus atributos (então não é apenas texto contido ali)
+
+anchor = soup.find('a')
+anchors = soup.find_all('a')
+# (anchors = âncoras)
+
+# Vamos criar um objeto de uma porção da página, como uma tabela.
+# (Lembra que tbody é a tag do corpo da tabela)
+
+table = soup.find('tbody')      
+type(table)     # Retorna 'bs4.element.Tag'
+# A tag de cima é tratada quase da mesma forma que a variável 'soup'
+
+# Tags filhos
+print(table.contents)
+# A linha de cima mostra todos os elementos-filhos do objeto table
+# (esses filhos estão alocados em uma lista)
+
+# Tag pai
+# O pai de uma tag é o elemento na qual essa tag está alocada
+print(table.parent)
+
+# PS: uma tag pode ter VÁRIOS filhos mas apenas UM pai, é por isso que
+# o pai é uma tag mas os filhos são uma lista. 
+```
+
+
 
 _Continua_...
