@@ -201,6 +201,64 @@ print(table.parent)
 # o pai é uma tag mas os filhos são uma lista. 
 ```
 
+### Por meio dos Atributos e Valores
+
+Agora que a gente sabe como navegarr na árvore usando os métodos anteriores (find e find_all), vamos expandir o conhecimento mostrando **como procurar por tags que contém valores de atributos específicos**.
+
+Pra efeito de exemplo, a gente vai lidar com tags aleatórias.
+
+A gente consegue pesquisar pelos nomes dos atributos e seus valores... ou podemos também colocar os atributos e seus valores dentro de um dicionário Python e buscar por esse dicionário.
+
+Veja o código abaixo.
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://www.wikipedia.org'
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'lxml')
+
+# Imagina que a gente quer encontrar essa tag: <div id="siteSub"> ... </div>
+# A gente adiciona um SEGUNDO argumento no nosso método find. Olha abaixo. 
+
+soup.find('div', id='siteSub')
+
+# Em teoria, a gente usou o método "find" (em vez de "find_all") porque só pode
+# existir um único Id com esse valor. Essa é uma boa prática e normalmente é
+# feito assim. Por isso o "find". 
+
+# Agora, imagina que a gente quer achar todos os links dentro de um certo atributo
+# de classe. Tipo assim: <a class="mw-jump-link"> ... </a>
+
+soup.find_all('a', class='mw-jump-link') # --> ERRO
+
+# "class" é uma palavra reservada em Python. Em vez disso, precisamos usar "class_"
+
+soup.find_all('a', class_='mw-jump-link') # --> BELEZA :)
+
+# Linha de cima retorna uma lista com as duas tags de âncora para a class mencionada:
+# [<a class="mw-jump-link" href="#mw-head">Jumo to navigation</a>,
+# <a class="mw-jump-link" href="#p-search">Jump to search</a>]
+
+# Dá uma olhada nessa lista: a gente pode incluir o valor em 'href' do segundo link
+# na nossa busca. Cada link tem um valor de 'href' diferente, então esse atributo
+# é único para cada um desses itens. 
+
+soup.find('a', class_'mw-jump-link', href='#p-search')
+# Retorna: 
+# <a class="mw-jump-link" href="#p-search">Jump to search</a>
+
+# Colocar os atributos dentro de um DICT():
+# chaves --> nome dos atributos
+# valores --> nome dos valores dos atributos
+# {"atributo": "valor", "chave": "valor", ...}
+
+soup.find('a', attrs={'class': 'mw-jump-link', 'href': '#p-search'})
+# Retorna:
+# <a class="mw-jump-link" href="#p-search">Jump to search</a>
+# (E porque aqui 'class' é uma string... não precisa do underline.)
+```
 
 
 _Continua_...
