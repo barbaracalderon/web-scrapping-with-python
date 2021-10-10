@@ -273,7 +273,7 @@ print(a['class'])
 # why it is a list here 
 
 # Another way to extract data from a Python dictionary is through
-# the dictionary method "get" ("dic.get('key'))
+# the dictionary method "get" ("dict.get('key'))
 
 print(a.get('class'))
 # ['mw-jump-link']     -> same result as a['class']:
@@ -289,7 +289,6 @@ print(a.get('class'))
 # The .attrs method returns all the attributes of an specific tag
 print(a.attrs)
 # {'class': ['mw-jump-link'], 'href': '#mw-head'}
-
 ```
 
 
