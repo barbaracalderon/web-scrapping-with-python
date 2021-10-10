@@ -249,6 +249,52 @@ soup.find('a', attrs={'class': 'mw-jump-link', 'href': '#p-search'})
 # (And because here 'class' is a string... it does not need the underscore.)
 ```
 
+### To Extract Data
+
+Let's see how to obtain data from the HTML document. The way we do this is through the attributes. Remember the object we created? It contains more than only text. That object has attributes, and you can treat it as if it was a dictionary as well.
+
+For example, suppose we continue from the above code box.
+
+```python
+a = soup.find('a', class_='mw-jump-link')
+print(a) 
+# <a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+# Pay attention to the line above, that's the object
+
+print(a.name)
+# 'a'                  -> this is the tag name
+
+print(a['href'])
+# '#mw-head'           -> this is the value of href attribute
+
+print(a['class'])
+# ['mw-jump-link']     -> this is the value of class attribute
+# Remember "class" atteibute can contain more than one: that's
+# why it is a list here 
+
+# Another way to extract data from a Python dictionary is through
+# the dictionary method "get" ("dic.get('key'))
+
+print(a.get('class'))
+# ['mw-jump-link']     -> same result as a['class']:
+#                        what's the difference?
+
+# Differences between these methods manifest when the key is missing
+# If we search for an attribute that does not exist, for example "id":
+# print(a['id'])
+# It prints an ERROR
+# Meanwhile if we search it through .get method, it returns a None
+# value instead of an error
+
+# The .attrs method returns all the attributes of an specific tag
+print(a.attrs)
+# {'class': ['mw-jump-link'], 'href': '#mw-head'}
+
+```
+
+
+
+
 
 
 
