@@ -45,7 +45,7 @@ So, what's the workflow of Web Scraping? What are the steps to extract data from
 4. Create a Beautiful Soup object
 5. (Optional) Export the HTML to a file
 
-## 1. Inspect the Page
+### 1. Inspect the Page
 
 This is the number one step. By using the browser's developer's tools, we gotta inspect the web page in order to know **where** our data is located in the HTML. Remember the tags and attributes? To which tags and attributes our data is related to? This is why we inspect the web page.
 
@@ -55,7 +55,7 @@ The browser does a lot of things for us, users. Sometimes, it receives the conte
 
 To **inspect the page is to grab the general idea of how the page is structured**, which is essential to extract the data we want.
 
-## 2. Obtain the HTML
+### 2. Obtain the HTML
 
 This is similar to the calls to APIs in file `01_WORKING_WITH_APIs.md` in this repository. This means we'll need to send a `request` to the server using the **requests library**. 
 
@@ -90,7 +90,7 @@ print(response.content)             # It prints the document HTML
 # That's why we parse the response.content
 ```
 
-## 3. Choose a Parser
+### 3. Choose a Parser
 
 You can think of the parse tree as an inverted family tree of HTML elements. Tree as a data structure tree. 
 
@@ -102,7 +102,7 @@ Here's how Beautiful Soup views each of these parsers: it ranks the html.parser 
 
 In case you don't choose a parser, Beautiful Soup will choose one for you. But this isn't cool - it's better that you always explicitly choose the parser. 
 
-## 4. Create a Beautiful Soup object to manipulate and extract data
+### 4. Create a Beautiful Soup object to manipulate and extract data
 
 With the HTML in hands and the parser tree, a Beautiful Soup object can be created. This object will manipulate and extract the data we want inside that HTML document.
 
@@ -130,9 +130,12 @@ soup3 = BeautifulSoup(response.content, 'html5lib')
 soup4 = BeautifulSoup(response.text, 'lxml')
 
 # Whenever in doubt: print things so you can "see" what they are
+# For example, print any of these soup objects
+print(soup)             # It returns the whole HTML document, its attributes
+                        # and values
 ```
 
-## 5. (Optional) Export the HTML to a file (highly recommended)
+### 5. (Optional) Export the HTML to a file (highly recommended)
 
 Even though it is optional, might be a good idea because:
 
@@ -143,6 +146,110 @@ b) The parser... may have not parsed it correctly. This is a chance for you to "
 c) Future reference.
 
 All of the above are good reasons. When we have a bug, to inspect the exported file might be a good option to debug the problem. It could save tons of time.
+
+## Searching and Navigating the HTML Tree
+
+It would be awesoe if at this point you'd check the Beautiful Soup documentation.
+
+Okay, by now we have created the Beautiful Soup object. We stored it inside the "soup" variable, it became our object. As said before, it contains the whole HTML and more: its attributes, values and more. Its format is the HTML **tree**. And we can navigate this tree in search for things.
+
+### Through Methods: `.find()` and `.find_all()`
+
+The two **most used methods** (methods are an object's functions) of a Beautiful Soup object are `.find()` and `.find_all()`. How do we use it? **The simplest way is to search for an element by its tag name**, so that is what goes inside parenthesis. 
+
+The difference between between these two is: `.find()` searches for the element and it stops right when it finds the first result; if the tag name is non-existent in the document, it returns `None`. Meanwhile `.find_all()` creates a list and stores inside that list every element it finds that matches the tag. If the tag name is non-existent in the document, it returns an empty list. 
+
+Also, instead of searching the whole document, we can "cut it" into portions so we can search only inside a portion of the page like, say, the table body.
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://www.wikipedia.org'
+response = requests.get(url)
+
+soup = BeautifulSoup(response.text, 'lxml')
+# The above 'soup' variable represents the whole document, including knowledge
+# about elements and their attributes (so it's not just the text)
+
+anchor = soup.find('a')
+anchors = soup.find_all('a')
+
+# Let's create an object just of a portion of the page, like a table
+# (Remember tbody tag is the body of the table)
+
+table = soup.find('tbody')      
+type(table)     # Returns 'bs4.element.Tag'
+# The above tag type is treated in almost the same way as the 'soup' variable
+
+# Children tag
+print(table.contents)
+# The above line shows us all the children elements of the object table 
+# (these children are in a list)
+
+# Parent tag
+# The parent of a tag is the element in which this tag is placed into
+print(table.parent)
+
+# PS: a tag can have MANY children but only ONE parent, that's why 
+# the parent is a tag but the children are a list
+```
+
+### Through attributes and values
+
+Now you know how to navigate by using the previous methods (find and find_all). Now, we'll expand our knowledge by showing **how to search for tags containing specific attribute values**.
+
+For example purposes, we'll come up with random tags.
+
+We can search by the tag attributes and values names... or we can also place the attributes inside a Python dictionary and search for that dictionary.
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://www.wikipedia.org'
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'lxml')
+
+# Suppose we want to find this tag: <div id="siteSub"> ... </div>
+# We'll add a second argument to our find method. Check below.
+
+soup.find('div', id='siteSub')
+
+# In theory, we used "find" (instead of find_all) because there can
+# be only one Id with that specific value. This is good practice and
+# generally done this way.
+
+# Now, suppose we want to find all links inside a certain class
+# attribute. Like this: <a class="mw-jump-link"> ... </a>
+
+soup.find_all('a', class='mw-jump-link') # --> ERROR
+
+# "class" is a Python reserved word. Instead, we'll use "class_"
+
+soup.find_all('a', class_='mw-jump-link') # --> FINE :)
+# It returns a list with both anchor tags for the mentioned class:
+# [<a class="mw-jump-link" href="#mw-head">Jumo to navigation</a>,
+# <a class="mw-jump-link" href="#p-search">Jump to search</a>]
+
+# Check out that list: we can include the 'href' value of the second
+# link to our search. They each have different "href" values, so this
+# attribute is unique to each item.
+
+soup.find('a', class_'mw-jump-link', href='#p-search')
+# Returns: <a class="mw-jump-link" href="#p-search">Jump to search</a>
+
+# Placing the attributes in a DICT():
+# keys --> name of the attributes
+# values --> name of the attributes values
+# {"attribute": "value", "keys": "values", ...}
+
+soup.find('a', attrs={'class': 'mw-jump-link', 'href': '#p-search'})
+# Returns: <a class="mw-jump-link" href="#p-search">Jump to search</a>
+# (And because here 'class' is a string... it does not need the underscore.)
+```
+
+
 
 
 _It continues..._
