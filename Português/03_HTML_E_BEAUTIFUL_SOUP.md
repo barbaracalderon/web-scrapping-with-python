@@ -260,5 +260,47 @@ soup.find('a', attrs={'class': 'mw-jump-link', 'href': '#p-search'})
 # (E porque aqui 'class' é uma string... não precisa do underline.)
 ```
 
+### Extrair Dados
+
+vamos ver como obter dados de um documento HTML. A forma que a gente faz isso é por meio dos atributos. Lembra do objeto que criamos? Ele contém mais do que apenas texto. Esse objeto tem atributos, e você pode tratar ele como se fosse um dicionário também.
+
+Para fins de exemplo, vamos continuar da caixa de código anterior.
+
+```python
+a = soup.find('a', class_='mw-jump-link')
+print(a) 
+# <a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+# Presta atenção na linha de cima, ele é o objeto (que pode ser
+# tratado como dicionário
+
+print(a.name)
+# 'a'                  -> esse é o nome da tag
+
+print(a['href'])
+# '#mw-head'           -> esse é o valor do atributo href
+
+print(a['class'])
+# ['mw-jump-link']     -> esse é o valor do atributo class 
+# Lembra que o atributo "class" pode conter mais do que um item: é por isso
+# que ele é uma lista 
+
+# Outra forma de extrair dados de um dicionário Python é por meio do método
+# de dicionário "get" ("dict.get('key'))
+
+print(a.get('class'))
+# ['mw-jump-link']     -> mesmo resultado que a['class']:
+#                        Qual a diferença?
+
+# A diferença entre esses métodos se manifesta quando uma chave está ausente.
+# Se a gente procura por um atributo que não existe, por exemplo "id":
+# print(a['id'])
+# Ele printa um ERRO. Enquanto que, se a gente busca pelo método .get, ele 
+# retorna o valor None em vez de um erro. 
+
+# O método .attrs retorna TODOS os atributos de uma tag específica:
+print(a.attrs)
+# {'class': ['mw-jump-link'], 'href': '#mw-head'}
+```
+
 
 _Continua_...
