@@ -291,6 +291,62 @@ print(a.attrs)
 # {'class': ['mw-jump-link'], 'href': '#mw-head'}
 ```
 
+### To Extract Text
+
+So far we've been extracting data. Question is: how do we extract the text attached to a tag? We can either do by methods .string or .text, but they are different when involving complex strings.
+
+Check below.
+
+```python
+# We'll continue from the previous code box.
+
+a = soup.find('a', class_='mw-jump-link')
+print(a) 
+# <a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+# We only want the text between tags: Jump to navigation
+
+print(a.string)
+# 'Jump to navigation'
+
+print(a.text)
+# 'Jump to navigation'
+
+# Now, let's create another object: paragraphs
+paragraph = soup.find_all('p')
+# Returns a list with 2 elements: an empty p tag and a another p tag full of stuff
+# We only want the second p tag (because the first one is empty):
+p = soup.find_all('p')[1]
+# Remember indexes start at 0 in Python, that's why it's [1] there
+
+print(p.text)
+# 'Music is the art of arranging sounds in time through the elements of melody, harmony, rhythm, and timbre. It is one of the universal cultural aspects of all human societies. General definitions of music include common elements such as pitch (which governs melody and harmony), rhythm (and its associated concepts tempo, meter, and articulation), dynamics (loudness and softness), and the sonic qualities of timbre and texture (which are sometimes termed the "color" of a musical sound). Different styles or types of music may emphasize, de-emphasize or omit some of these elements. Music is performed with a vast range of instruments and vocal techniques ranging from singing to rapping; there are solely instrumental pieces, solely vocal pieces (such as songs without instrumental accompaniment) and pieces that combine singing and instruments. The word derives from Greek μουσική (mousike; "(art) of the Muses").'
+# -> Returns the raw text of the p object
+
+print(p.string)
+# None
+# -> Returns the string that is strictly associated with the element
+# In this case, there is no one string strictly associated with it, that's why None
+
+print(p.parent.text)        # -> Returns the text of the parent tag, in this case, a "div"
+print(soup.text)            # -> Returns the whole text of the soup object, including
+                            # Javascript text... because BeautifulSoup only recognizes
+                            # HTML as non-text
+
+# In some situations, it would be better to only catch a specific
+# string of text or maybe do some processing on all string fragments
+# We can achieve this with the help of ".strings iterator" and it is
+# mainly used in a "for loop"
+# (Do no confuse ".strings iterator" with ".string")
+
+for s in p.strings:
+    print(s)
+    # The above line prints all strings inside the p, but it contains
+    # Lots of space inside the string... it would be better to clean it
+
+for s in p.stripped_strings:
+    print(s)
+    # Same as above BUT with no whitespace or \n inside the strings
+
 
 
 
