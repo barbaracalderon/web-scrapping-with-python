@@ -260,7 +260,7 @@ soup.find('a', attrs={'class': 'mw-jump-link', 'href': '#p-search'})
 # (E porque aqui 'class' é uma string... não precisa do underline.)
 ```
 
-### Extrair Dados
+### Para Extrair Dados
 
 vamos ver como obter dados de um documento HTML. A forma que a gente faz isso é por meio dos atributos. Lembra do objeto que criamos? Ele contém mais do que apenas texto. Esse objeto tem atributos, e você pode tratar ele como se fosse um dicionário também.
 
@@ -302,7 +302,7 @@ print(a.attrs)
 # {'class': ['mw-jump-link'], 'href': '#mw-head'}
 ```
 
-### Extrair Texto
+### Para Extrair Texto
 
 Até agora nós estávamos extraindo dados. A pergunta é: como a gente extrai o texto que está associado a uma tag? Podemos fazer isso por meio dos métodos .string ou .text, mas eles agem diferentes quando envolvem strings complexas.
 
@@ -334,7 +334,18 @@ p = soup.find_all('p')[1]
 # (Lembra que os índices de lista em Python começam em 0, por isso o [1] ali)
 
 print(p.text)
-# 'Music is the art of arranging sounds in time through the elements of melody, harmony, rhythm, and timbre. It is one of the universal cultural aspects of all human societies. General definitions of music include common elements such as pitch (which governs melody and harmony), rhythm (and its associated concepts tempo, meter, and articulation), dynamics (loudness and softness), and the sonic qualities of timbre and texture (which are sometimes termed the "color" of a musical sound). Different styles or types of music may emphasize, de-emphasize or omit some of these elements. Music is performed with a vast range of instruments and vocal techniques ranging from singing to rapping; there are solely instrumental pieces, solely vocal pieces (such as songs without instrumental accompaniment) and pieces that combine singing and instruments. The word derives from Greek μουσική (mousike; "(art) of the Muses").'
+# 'Music is the art of arranging sounds in time through the elements of melody, 
+# harmony, rhythm, and timbre. It is one of the universal cultural aspects of
+# all human societies. General definitions of music include common elements such
+# as pitch (which governs melody and harmony), rhythm (and its associated
+# concepts tempo, meter, and articulation), dynamics (loudness and softness),
+# and the sonic qualities of timbre and texture (which are sometimes termed the
+# "color" of a musical sound). Different styles or types of music may emphasize,
+# de-emphasize or omit some of these elements. Music is performed with a vast
+# range of instruments and vocal techniques ranging from singing to rapping;
+# there are solely instrumental pieces, solely vocal pieces (such as songs
+# without instrumental accompaniment) and pieces that combine singing and
+# instruments. The word derives from Greek μουσική (mousike; "(art) of the Muses").'
 # -> Retorna o texto cru do objeto p (como mostrado acima)
 
 # Agora testando a mesma coisa com método .string
