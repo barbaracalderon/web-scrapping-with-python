@@ -1,6 +1,12 @@
 # Tables and Pandas
 
-It's time we learn how to store our data in structured form. For this, we'll use the **pandas** library, a very neat and visual way to structure tabula data. You can find the [pandas documentation here](https://pandas.pydata.org/docs/).
+It's time we learn how to store our data in structured form. For this, we'll use the **pandas** library, a very neat and visual way to structure tabula data. 
+
+## pandas documentation
+
+You can find the [pandas documentation here](https://pandas.pydata.org/docs/).
+
+## creating a DataFrame
 
 _The examples in this section are from the website Rotten Tomatoes, as shown in the course._
 
@@ -23,7 +29,11 @@ movies_info["Cast"] = cast
 movies_info["Consensus"] = consensus_text
 ```
 
+## undo truncate info 
+
 _PS: pandas abreviate any text that does not fit into the screen. To make it not "truncate" it, we have to set an option: `pd.set_option('display.max_colwidth', -1)`_
+
+## export to CSV and to Excel
 
 Now, data analysis can be carried on. It is desirable to expor the data to CSV (_Comma Separated Values_) or Excel, so we have it as file. And pandas provide simple methods to convert dataframes into these formats: `.to_csv() ` and `.to_excel()`. They will create a file located in the same folder of your python code.
 
