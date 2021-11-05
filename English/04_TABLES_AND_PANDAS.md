@@ -10,6 +10,7 @@ Suppose we have a list for each movie information: a list for the movies titles 
 
 ```python
 import pandas as pd
+pd.set_option('display.max_colwidth', -1)
 
 movies_info = pd.DataFrame()
 movies_info["Movie Title"] = movies_names
@@ -22,5 +23,17 @@ movies_info["Cast"] = cast
 movies_info["Consensus"] = consensus_text
 ```
 
-Now, data analysis can be done. 
+_PS: pandas abreviate any text that does not fit into the screen. To make it not "truncate" it, we have to set an option: `pd.set_option('display.max_colwidth', -1)`_
+
+Now, data analysis can be carried on. It is desirable to expor the data to CSV (_Comma Separated Values_) or Excel, so we have it as file. And pandas provide simple methods to convert dataframes into these formats: `.to_csv() ` and `.to_excel()`. They will create a file located in the same folder of your python code.
+
+This is how it's done in our case. Check below.
+
+```python
+# Exporting the DataFrame to a CSV file:
+movies_info.to_csv("movies_info.csv", index=False, header=True)
+
+# Exporting the DataFrame to an Excel file:
+movies_info.to_excel("movies_info.xlsx", index=False, header=True)
+```
 
