@@ -358,5 +358,3 @@ for s in p.stripped_strings:
     print(s)
     # Same as above BUT with no whitespace or \n inside the strings
 ```
-
-_It continues..._

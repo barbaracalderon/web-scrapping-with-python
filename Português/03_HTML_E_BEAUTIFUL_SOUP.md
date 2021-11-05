@@ -373,5 +373,3 @@ for s in p.stripped_strings:
     print(s)
     # Mesmo que o de cima MAS sem o espaço em branco ou \n dentro da string
 ```
-
-_Continua_...
