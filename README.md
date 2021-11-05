@@ -1,6 +1,5 @@
-_In English and e em Português._
-
-**UNDER CONSTRUCTION // EM CONSTRUÇÃO**
+_In English._
+_Em Português._
 
 # EN: Web Scrapping with Python
 
@@ -20,6 +19,7 @@ FILES | CONTENTS
 04_TABLES_AND_PANDAS.md | pandas documentation; creating a DataFrame; undo truncate info; export to CSV and export to Excel
 
 ---
+
 # PT: Web Scrapping usando Python
 Notas de estudo sobre Web Scraping usando Python, **Beautiful Soup** e **Requests**. O "Web Scrapping" é uma forma de mineração que permite a extração de dados de sites da web. Ou seja, é uma técnica de coleta de informações. Para fazer isso, a gente usa a automação inteligente com Python.
 
