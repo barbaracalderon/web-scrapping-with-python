@@ -42,3 +42,23 @@ list_of_tags = [tag.text for tag in r.html.find('a', containing='wikipedia')]
 
 r.html.find('p', first=True)        # Similar to method 'find()' from bs4
 ```
+
+## Searching for Text Based on a Pattern
+
+If you need to find part of a text that is stuck between certain phrases, you can do that in Requests-HTML. That is a method called search that does just that.
+
+As an example, let's try to find part of a text that is just after the word "known" and before the word "soccer". 
+
+```python
+# HTML.search
+r.html.search("known{}soccer")[0]
+# Curly brackets are saying "we are looking for a text that
+# when substituted for them matches our string".
+# To get the text itself, we choose the first element -> returns a valid string
+
+# HTML.search_all
+r.html.search_all("known{}soccer")[0]
+# Returns a list of texts that matches our string.
+# PS: Sometimes it may return some bits of tags, that's because
+# the search and search_all parse the raw HTML
+```
