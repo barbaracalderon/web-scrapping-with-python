@@ -62,3 +62,38 @@ r.html.search_all("known{}soccer")[0]
 # PS: Sometimes it may return some bits of tags, that's because
 # the search and search_all parse the raw HTML
 ```
+
+## CSS Selectors
+
+This is the Cascading Style Sheets. The CSS selectors are just text that refer to one or more elements in the HTML document. 
+
+```python
+# 1) SELECT ELEMENTS BASED ON ID (#) 
+# (They're case sensitive!)
+r.html.find("#Name")    # -> Returns a list
+r.html.find("#name")    # -> Returns a list
+r.html.find("#Duration_and_tie-breaking_methods", first=True)   # -> Returns an element
+
+# 2) SELECT ELEMENTS BASED UPON CLASS (.)
+# (You can search for a class inside a class)
+r.html.find(".mw-headline")                 # -> Returns a list
+r.html.find(".mew-headline.plainlinks")     # -> Returns a list
+# The immeadite above line finds a class (plainlinks) inside another
+# class (mw-headline)
+
+# 3) SELECTING BASED ON OTHER ATTRIBUTES
+# A. [attribute]: selects all tags that have defined the attribute
+# B. [attribute=value]: selects all tags with that particular value of the attribute
+# C. [attribute*=value]: attribute contains the SUBSTRING 'value'
+
+
+# A. 
+r.html.find("[target]")                 # -> Returns a list
+
+# B.
+r.html.find("[role=note]")              # -> Returns a list
+
+# C.
+
+
+```
