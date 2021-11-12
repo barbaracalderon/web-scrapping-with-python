@@ -45,7 +45,7 @@ r.html.find('p', first=True)        # Similar to method 'find()' from bs4
 
 ## Searching for Text Based on a Pattern
 
-If you need to find part of a text that is stuck between certain phrases, you can do that in Requests-HTML. That is a method called search that does just that.
+If you need to find part of a text that is stuck between certain phrases, you can do that in Requests-HTML. There is a method called 'search' that does just that.
 
 As an example, let's try to find part of a text that is just after the word "known" and before the word "soccer". 
 
