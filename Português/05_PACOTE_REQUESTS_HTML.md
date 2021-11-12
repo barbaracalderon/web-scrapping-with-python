@@ -43,3 +43,80 @@ list_of_tags = [tag.text for tag in r.html.find('a', containing='wikipedia')]
 
 r.html.find('p', first=True)        # Similar ao método 'find()' do bs4
 ```
+
+## Procurando por Texto baseado em um Padrão
+
+Se você precisa procurar por uma parte de texto que está entre duas determinadas frases, você pode capturar essa parte usando o Requests-HTML. Existe um método chamado 'search' que faz isso.
+
+Como um exemplo, vamos tentar achar uma parte de um texto que está entre as palavras "known" e "soccer".
+
+```python
+# HTML.search
+r.html.search("known{}soccer")[0]
+# As chaves dizem "estamos procurando por um texto que, quando
+# substituído aqui, dá um match na nossa string."
+# Para pegar o texto, nós escolhemos o primeiro elemento -> ele retorna
+# uma string válida.
+
+# HTML.search_all
+r.html.search_all("known{}soccer")[0]
+# Retorna uma lista de textos que dão match na nossa string.
+# PS: Às vezes ele pode retornar umas tags dentro; isso acontece
+# porque o método search e search_all fazem um parsem no HTML cru
+```
+## Seletores CSS
+
+CSS é o Cascading Style Sheets. Os seletores CSS são apenas texto que se referem a um ou mais elementos no documento HTML. 
+
+```python
+# 1) SELECIONAR ELEMENTOS BASEADO NO ID (#) ---------------------
+# (Fazem a diferença entre maiúscula e minúscula)
+r.html.find("#Name")    # -> Retorna uma lista
+r.html.find("#name")    # -> Retorna uma lista 
+r.html.find("#Duration_and_tie-breaking_methods", first=True)   # -> Retorna um elemento
+
+# 2) SELECIONA ELEMENTOS BASEADOS EM UMA CLASSE (.) ------------
+# (Dá pra pesquisar uma classe dentro de outra classe)
+r.html.find(".mw-headline")             # -> Retorna uma lista
+r.html.find(".metadata.plainlinks")     # -> Retorna uma lista
+# A linha de cima acha uma classe (plainlinks) dentro de outra
+# classe (metadata)
+
+# 3) SELECIONA BASEADO EM OUTROS ATRIBUTOS ---------------------
+# A. [atributo]: seleciona todas as tagas que tem o atributo
+# B. [atributo=valor]: seleciona todas as tags com esse valor
+# específico do atributo mencionado
+# C. [atributo*=valor]: atributo contém a SUBSTRING "valor"
+
+# A. 
+r.html.find("[target]")                 # -> Retorna uma lista
+
+# B.
+r.html.find("[role=note]")              # -> Retorna uma lista
+
+# C.
+r.html.find("[href*=wikipedia]")        # -> Retorna uma lista
+
+# 4) COMBINANDO FILTROS DIFERENTES JUNTOS ---------------------
+# Filtrar apenas as anchor tags que tenham wikipedia no endereço:
+r.html.find("a[href*=wikipedia]")
+# Filtrar anchor tags com a classe "internal":
+r.html.find("a.internal")
+# Todas as tags div com a classe "thumb" e "tright":
+r.html.find("div.thumb.tright")
+# Usar o formato de chaves:
+r.html.find("div[role=note][class='hatnote navigation-not-searchable']")
+# -> linha de cima: nós precisamos mencionar todas os valores
+# da classe que desejamos
+
+# 5) INCORPORANDO A HIERARQUIA DE TAG ------------------------
+# PS: Os seletores CSS também permitem que a gente escolha
+# elementos baseados em seus pais ou irmãos
+# Filtrar todas as span tags dentro de uma tag h2: você precisa
+# separar ambos dentro do método find
+r.html.find('h2 span')
+# Filtrar o elemento que é diretamente filho de outro
+# (usar o símbolo de 'maior que' >):
+r.html.find("div > p")
+
+```
