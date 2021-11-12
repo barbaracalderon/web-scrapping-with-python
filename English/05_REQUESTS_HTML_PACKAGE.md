@@ -68,20 +68,20 @@ r.html.search_all("known{}soccer")[0]
 This is the Cascading Style Sheets. The CSS selectors are just text that refer to one or more elements in the HTML document. 
 
 ```python
-# 1) SELECT ELEMENTS BASED ON ID (#) 
+# 1) SELECT ELEMENTS BASED ON ID (#) ----------------------------
 # (They're case sensitive!)
-r.html.find("#Name")    # -> Returns a list
-r.html.find("#name")    # -> Returns a list
+r.html.find("#Name")    # -> Returns a list (case sensitive)
+r.html.find("#name")    # -> Returns a list (case sensitive)
 r.html.find("#Duration_and_tie-breaking_methods", first=True)   # -> Returns an element
 
-# 2) SELECT ELEMENTS BASED UPON CLASS (.)
+# 2) SELECT ELEMENTS BASED UPON CLASS (.) ----------------------
 # (You can search for a class inside a class)
 r.html.find(".mw-headline")                 # -> Returns a list
-r.html.find(".mew-headline.plainlinks")     # -> Returns a list
+r.html.find(".metadata.plainlinks")     # -> Returns a list
 # The immeadite above line finds a class (plainlinks) inside another
 # class (mw-headline)
 
-# 3) SELECTING BASED ON OTHER ATTRIBUTES
+# 3) SELECTING BASED ON OTHER ATTRIBUTES -----------------------
 # A. [attribute]: selects all tags that have defined the attribute
 # B. [attribute=value]: selects all tags with that particular value of the attribute
 # C. [attribute*=value]: attribute contains the SUBSTRING 'value'
@@ -94,6 +94,27 @@ r.html.find("[target]")                 # -> Returns a list
 r.html.find("[role=note]")              # -> Returns a list
 
 # C.
+r.html.find("[href*=wikipedia]")        # -> Returns a list
 
+# 4) COMBINING DIFFERENT FILTERS TOGETHER ---------------------
+# Filter only the anchor tags and wikipedia in the address:
+r.html.find("a[href*=wikipedia]")
+# Filter anchor tags with class "internal":
+r.html.find("a.internal")
+# All div tags with class "thumb" and "tright":
+r.html.find("div.thumb.tright")
+# Using square brackets:
+r.html.find("div[role=note][class='hatnote navigation-not-searchable']")
+# -> above: we need to address all classes inside 'class' value
+
+# 5) INCORPORATING TAG HIERARCHY -----------------------------
+# PS: CSS selectors also allow us to choose elements based on
+# their parents and siblings
+# Filter all the span tags inside an h2 tag: all you need is
+# to separate both inside the find method
+r.html.find('h2 span')
+# Filter an element that is the direct child of another
+# (use the 'greater than' sign >):
+r.html.find("div > p")
 
 ```
