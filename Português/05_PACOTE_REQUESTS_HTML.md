@@ -118,5 +118,47 @@ r.html.find('h2 span')
 # Filtrar o elemento que é diretamente filho de outro
 # (usar o símbolo de 'maior que' >):
 r.html.find("div > p")
-
 ```
+
+## Extraindo dados gerados por Javascript
+
+No requests-HTML, tem um método especial chamado `.render()`: ele executa o código Javascript da mesma forma que um navegador faria. Esse JS adicional pode ser armazenado e inspecionado como normalmente faríamos. Então, a única diferença para o scraping normal é que precisamos usar o método 'render' logo antes da extração dos dados.
+
+```python
+from requests_html import AsyncHTMLSession
+
+session = AsyncHTMLSession()
+
+r = await session.get("https///www.reddit.com/")
+print(r.status_code)        # 200
+
+divs = r.html.find('div')
+links = r.html.find('a')
+urls = r.html.absolute_links         # 'absolute_links' é um atributo
+
+await r.html.arender()
+# O comando acima vai fazer o download e a instalação do Chromium
+# (se não tiver na máquina!). O Chromiu é um programa que se comporta
+# como um navegador mas não tem uma interface gráfica
+
+new_divs = r.html.find('div')       # tamanho maior agora
+new_links = r.html.find('a')        # tamanho maior agora
+new_urls = r.html.absolute_links    # tamanho maior agora
+
+# set1.difference(set2)
+# -> ele retorna apenas os elementos de set1 que não estão
+# contidos no set2
+
+new_urls.difference(urls)
+# a repsosta são todas as URLs que foram geradas pelo Javascript :)
+
+session.close()
+```
+
+Sempre que usamos o método 'render', pode levar um tempo pra funcionar. Mas você pode ajustar o parâmetro 'wait' para a quantidade de tempo (em segundos) que o Chromium vai esperar antes de carregar a página. Você também pode mudar o parâmetro 'retries' - por padrão, o Chromium vai tentar carregar a página 8 vezes.
+
+Chegamos ao fim.
+
+Boa sorte.
+
+:-)
