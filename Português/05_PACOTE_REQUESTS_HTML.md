@@ -1,4 +1,4 @@
-# Apresentando o Pacote Requests=HTML
+# Apresentando o Pacote Requests-HTML
 
 O combo "Beautiful Soup" + "Requests" que a gente tem usado até agora pode ser inadequado para projetos grandes ou sites em Javascript. Existe uma outra biblioteca interessante chamada "Requests-HTML" **criada pelo mesmo autor da Biblioteca Requests**. Esse pacote foi criado com o objetivo de substituir e simplificar o combo. E o que é mais legal: **suporta Javascript** - o que significa que consegue executar o código JS e parsear a página resultado.
 
