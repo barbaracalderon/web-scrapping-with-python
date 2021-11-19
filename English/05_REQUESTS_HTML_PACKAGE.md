@@ -154,3 +154,9 @@ session.close()
 ```
 
 Whenever we use the render method, it may take a while for it to work. But you can adjust the wait parameter to adjust the amount of time (to seconds) the Chromium will wait before loading the page. You can also change the 'retries' parameter - by default, Chromium will attempt to load the webpage 8 times. 
+
+We reached the end.
+
+Good luck. 
+
+:-)
