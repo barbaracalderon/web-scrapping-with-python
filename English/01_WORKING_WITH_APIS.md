@@ -14,13 +14,12 @@ When your computer makes a request to that server. The server gives you a respon
 
 The two most popular HTTP requests are **GET** and **POST**.
 
-GET | POST
---- | ----
-Obtain data from a server | Alter state or send confidential information
-Can be bookmarked | Parameters are added in a separate body
-Parameters are added directly to the URL | `r = requests.post(url, params=data)`
-_Not used for sensitive information_ | -
-
+| GET                                      | POST                                         |
+|------------------------------------------|----------------------------------------------|
+| Obtain data from a server                | Alter state or send confidential information |
+| Can be bookmarked                        | Parameters are added in a separate body      |
+| Parameters are added directly to the URL | `r = requests.post(url, params=data)`        |
+| _Not used for sensitive information_     | -                                            |
 
 If everything is fine with your request, you should get a 200 status code. If things go wrong, you get the 404 status code error of page not found.
 
