@@ -1,13 +1,15 @@
-# Writing to and Reading from CSV Files
+# Extra Notes
 
 These are my study notes from the course ["Web Scraping and Crawling with Python: Beautiful Soup, Requests & 
 Selenium"](https://www.udemy.com/course/web-scraping-with-python-beautifulsoup/)
 by instructor Waqar Ahmed.
 
+## Writing to and Reading from CSV Files
+
 First of all, a workbook is the same as opening a CSV file with all the tabs it includes (that is, if there's any). 
 Second, a sheet is the same thing as a tab inside the workbook. You can have multiple sheets in the same workbook.
 
-## xlsxwriter / writing
+### Writing: xlsxwriter
 
 This is the name of the module. You should import it and work with it. Like this:
 
@@ -48,7 +50,7 @@ workbook.close()
 # Each row contains the string "Row Number" on first column, and on second column the row number (int)
 ```
 
-## xlrd / reading
+### Reading: xlrd
 
 For the reading, we should use the module xlrd. It looks like below:
 
@@ -69,18 +71,22 @@ for row in range(rows):
     print(f'{first_column}    {second_column}')
 ```
 
-# fake_useragent
+## Seeting up a Fake User-Agent
+
+### fake_useragent
+
+User-agent is a software that acts on behalf of a user. To summarize it, we tell the server that a browser is doing 
+the work on the server, not a piece of code.
 
 ```python
 from fake_useragent import UserAgent
 import requests
 
-ua = UserAgent()
+user_agent = UserAgent()
 
-header = {'user_agent': ua.chrome}
+header = {'user_agent': user_agent.chrome}
 
-page = requests.get('https://www.google.com', headers=header)
+# Timeout tells the code not to wait longer than timeout seconds for a response
+page = requests.get('https://www.google.com', headers=header, timeout=6)
 print(page.content)
-
-
 ```
