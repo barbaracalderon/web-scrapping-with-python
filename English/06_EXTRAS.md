@@ -90,3 +90,34 @@ header = {'user_agent': user_agent.chrome}
 page = requests.get('https://www.google.com', headers=header, timeout=6)
 print(page.content)
 ```
+
+# Regular Expressions (REGEX)
+
+It's useful to match characters, finding tags or data through the parse tree (as in Beautiful Soup, for example).
+
+The good effect is it is very fast and efficient, as long as you know what you are looking for and how to build your 
+expression. The not so great effect is... the more complex your expression is, the more complex the string will 
+become - which reduces readability.
+
+I found this Corey Schafer tutorial video incredibly useful and easy to understand - [Corey Schafer - Regular 
+Expressions (Regex) Tutorial: How to Match Any Pattern of Text.](https://www.youtube.com/watch?v=sa-TUpSx1JA) I'm a 
+big fan of Mr. Schafer and his teaching talents, you should consider subscribing to his channel and taking some 
+minutes digging gold there.
+
+The [documentation for the regular expressions operations (re)](https://docs.python.org/3/library/re.html) can be found here.
+
+Let's continue.
+
+Here's a piece of code. 
+
+```python
+import re
+
+# re.compile(pattern) -- returns a regex object
+# (pattern -> could be a range of strings, a set of parameters)
+regex = re.compile('ab')
+
+
+```
+
+## Continues...
