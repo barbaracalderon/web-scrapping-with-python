@@ -110,6 +110,8 @@ This can be very useful if worked upon carefully. I suggest taking a look at Mr.
 
 # The cURL converter
 
+*These notes are from working with the tools.*
+
 Instead of working your way into gathering information on headers, cookies, data, json, params and more... in order to 
 generate a request to a server, use the `curl` command into your favor. 
 
