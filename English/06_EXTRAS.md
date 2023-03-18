@@ -106,18 +106,25 @@ minutes digging gold there.
 
 The [documentation for the regular expressions operations (re)](https://docs.python.org/3/library/re.html) can be found here.
 
-Let's continue.
+This can be very useful if worked upon carefully. I suggest taking a look at Mr. Schafer videos.
 
-Here's a piece of code. 
+# The cURL converter
 
-```python
-import re
+Instead of working your way into gathering information on headers, cookies, data, json, params and more... in order to 
+generate a request to a server, use the `curl` command into your favor. 
 
-# re.compile(pattern) -- returns a regex object
-# (pattern -> could be a range of strings, a set of parameters)
-regex = re.compile('ab')
+Here's how it works.
 
+Let's assume we want to reach the example website of pudim.com.br (nothing big here, just a picture of a pudim). How 
+do we translate this successful action into a Python code using cURL?
 
-```
+1. Open your browser and hit F12 to open the dev tools
+2. Type the URL and hit Enter
+3. Go to the Network tab, inside the dev tools, and search for the status code 200 and html document
+4. Right click on it and `copy as cURL`
+5. Go to the [cURL converter](https://curlconverter.com/python/) and check for Python
+6. Paste what's in your clipboard
+7. See the piece of Python code that reaches the expected response
+8. Done
 
-## Continues...
+This is a beautiful shortcut.
